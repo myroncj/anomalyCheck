@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    tools:context="com.electrons.myron.anomalycheck.MainActivity">
+
+        <TextView
+            android:id="@+id/x_axis"
+            android:text="x : "
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20sp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/y_axis"
+            android:text="y : "
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20sp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/z_axis"
+            android:text="z : "
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20sp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="Anomalies:"
+            android:layout_marginTop="20sp"
+            android:textSize="24sp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ListView
+            android:id="@+id/anomalyEvent"
+            android:layout_marginTop="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></ListView>
+
+
+
+</LinearLayout>
