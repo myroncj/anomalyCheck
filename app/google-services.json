@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1070157660603",
+    "firebase_url": "https://anomalycheck-ce6c1.firebaseio.com",
+    "project_id": "anomalycheck-ce6c1",
+    "storage_bucket": "anomalycheck-ce6c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070157660603:android:9526501d1fec9a1f",
+        "android_client_info": {
+          "package_name": "com.electrons.myron.anomalycheck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070157660603-7l4h5t9sdciubd91ksbk0oerftdb26vn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.electrons.myron.anomalycheck",
+            "certificate_hash": "d07a6be55b793d16bf51f40adac7f28b4b2855ee"
+          }
+        },
+        {
+          "client_id": "1070157660603-cuf5rd6826jh5ql3cp4mr20q3hscbiim.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFn_QKZo4NUEzXv8Ek-3yA8JJwMyW_3rQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070157660603-cuf5rd6826jh5ql3cp4mr20q3hscbiim.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
