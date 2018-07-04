@@ -27,11 +27,14 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +43,10 @@ import java.util.Map;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+    FirebaseRemoteConfig mFirebaseRemoteConfig;
+
+    float threshold;
 
     private static final String TAG = "AnomalyCheck";
     private static final String ANOMALY_IMPACT = "Impact";
@@ -78,6 +85,41 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettings(configSettings);
+
+        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
+
+        // cache expiration in seconds
+        long cacheExpiration = 3600;
+
+        //expire the cache immediately for development mode.
+        if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
+            cacheExpiration = 0;
+        }
+
+        // fetch
+        mFirebaseRemoteConfig.fetch(cacheExpiration)
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // task successful. Activate the fetched data
+                            mFirebaseRemoteConfig.activateFetched();
+
+                        } else {
+
+                        }
+                    }
+                });
+
+        threshold = Float.parseFloat(mFirebaseRemoteConfig.getString("impact_threshold"));
+
+        Log.d(TAG,"Threshold Value is :" + threshold);
 
         startLocationUpdates();
 
@@ -147,8 +189,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        // You can now create a LatLng Object for use with maps
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//        You can now create a LatLng Object for use with maps
+//        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
     }
 
     @Override
@@ -158,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float y2 = event.values[1];
         float z2 = event.values[2];
 
-        if(z2 > (z1+5)) {
+        if(z2 > (z1+threshold)) {
 
                 Log.e(TAG,"lat : "+latitude);
                 Log.e(TAG,"long : "+longitude);
@@ -249,7 +291,5 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                 REQUEST_FINE_LOCATION);
     }
-
-
 
 }
