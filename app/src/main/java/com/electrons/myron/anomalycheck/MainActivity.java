@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         if (task.isSuccessful()) {
                             // task successful. Activate the fetched data
                             mFirebaseRemoteConfig.activateFetched();
+                            Log.d(TAG,"Threshold Updated : " + threshold);
 
                         } else {
 
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         threshold = Float.parseFloat(mFirebaseRemoteConfig.getString("impact_threshold"));
 
-        Log.d(TAG,"Threshold Value is :" + threshold);
+        Log.d(TAG,"Threshold Value is : " + threshold);
 
         startLocationUpdates();
 
